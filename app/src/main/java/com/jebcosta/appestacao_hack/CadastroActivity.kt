@@ -1,13 +1,21 @@
 package com.jebcosta.appestacao_hack
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.jebcosta.appestacao_hack.databinding.ActivityCadastroBinding
+import java.math.BigInteger
+import java.security.MessageDigest
 
 class CadastroActivity : AppCompatActivity() {
+    fun md5(input:String): String {
+        val md = MessageDigest.getInstance("MD5")
+        return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
+    }
+
     private lateinit var binding: ActivityCadastroBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +29,13 @@ class CadastroActivity : AppCompatActivity() {
 
         val spinnerAdapter = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_dropdown_item, // Layout
+            //R.layout.support_simple_spinner_dropdown_item, // Layout
+            R.layout.layout_branco_item,
             listaContinentes        // Dados
         )
+
+        spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+
         // Plugando o adaptador no Spinner da Activity
         binding.spnCadastroContinente.adapter = spinnerAdapter
 
@@ -53,13 +65,19 @@ class CadastroActivity : AppCompatActivity() {
                 editPrefs.putString("NOME", nome)
                 editPrefs.putString("SOBRENOME", sobrenome)
                 editPrefs.putString("EMAIL", email)
-                editPrefs.putString("SENHA", senha)
+                editPrefs.putString("SENHA", md5(senha))
                 editPrefs.putString("CONTINENTE", continente)
 
                 // Aqui os dados são salvos no arquivo
                 editPrefs.apply()
 
-                Toast.makeText(this, "Cadastro Realizado", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "Cadastro Realizado", Toast.LENGTH_LONG).show()
+
+                val mIntent = Intent(this, MainActivity::class.java)
+
+                startActivity(mIntent)
+                // Este método remove todas as activites do empilhamento
+                finishAffinity()
 
             }
         }
