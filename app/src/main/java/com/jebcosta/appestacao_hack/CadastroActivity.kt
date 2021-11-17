@@ -1,8 +1,10 @@
 package com.jebcosta.appestacao_hack
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.jebcosta.appestacao_hack.databinding.ActivityCadastroBinding
 
 class CadastroActivity : AppCompatActivity() {
@@ -33,8 +35,33 @@ class CadastroActivity : AppCompatActivity() {
             val sobrenome = binding.edtCadastroSobrenome.text.toString().trim()
             val email = binding.edtCadastroEmail.text.toString().trim().lowercase()
             val senha = binding.edtCadastroSenha.text.toString().trim()
-            val continente = binding.spnCadastroContinente
+            val continente = binding.spnCadastroContinente.selectedItem.toString()
 
+            if(nome.isEmpty() || sobrenome.isEmpty() ||
+                email.isEmpty() || senha.isEmpty() || continente == listaContinentes[0]){
+                Toast.makeText(this, "Preencha todos os campos",
+                    Toast.LENGTH_LONG).show()
+            } else {
+                // Aqui estamos criando um arquivo de preferências compartilhadas
+                val sharedPrefs = getSharedPreferences("Cadastro_$email",
+                    Context.MODE_PRIVATE)
+
+                // Vamos tornar nosso arquivo digitavel
+                val editPrefs = sharedPrefs.edit()
+
+                // Os dados são salvos no formato chave -> valor
+                editPrefs.putString("NOME", nome)
+                editPrefs.putString("SOBRENOME", sobrenome)
+                editPrefs.putString("EMAIL", email)
+                editPrefs.putString("SENHA", senha)
+                editPrefs.putString("CONTINENTE", continente)
+
+                // Aqui os dados são salvos no arquivo
+                editPrefs.apply()
+
+                Toast.makeText(this, "Cadastro Realizado", Toast.LENGTH_LONG).show()
+
+            }
         }
     }
 }
