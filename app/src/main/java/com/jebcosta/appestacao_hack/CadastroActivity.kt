@@ -24,7 +24,7 @@ class CadastroActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Criando a lista de opções para o Spinner
-        val listaContinentes = arrayListOf("Continente", "Africa", "Antártida", "America",
+        val listaContinentes = arrayListOf("Continente", "Africa", "Antártida", "América",
             "Ásia", "Europa", "Oceania")
 
         val spinnerAdapter = ArrayAdapter(
@@ -55,7 +55,7 @@ class CadastroActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG).show()
             } else {
                 // Aqui estamos criando um arquivo de preferências compartilhadas
-                val sharedPrefs = getSharedPreferences("Cadastro_$email",
+                val sharedPrefs = getSharedPreferences("cadastro_$email",
                     Context.MODE_PRIVATE)
 
                 // Vamos tornar nosso arquivo digitavel
@@ -74,6 +74,10 @@ class CadastroActivity : AppCompatActivity() {
                 //Toast.makeText(this, "Cadastro Realizado", Toast.LENGTH_LONG).show()
 
                 val mIntent = Intent(this, MainActivity::class.java)
+
+                // Aqui é mostrado como passar dados de uma Activity para outra
+                // nos vamoms utilizar o email para abrir o nosso arquivo de preferências
+                mIntent.putExtra("INTENT_EMAIL", email)
 
                 startActivity(mIntent)
                 // Este método remove todas as activites do empilhamento

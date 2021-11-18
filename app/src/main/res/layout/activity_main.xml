@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnMmainSair"
+        android:id="@+id/btnMainSair"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMmainSair" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMainSair" />
 
     <TextView
         android:id="@+id/txvMainEmail"
@@ -55,7 +55,7 @@
         android:text="Continente"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnMmainSair"
+        app:layout_constraintBottom_toTopOf="@+id/btnMainSair"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
